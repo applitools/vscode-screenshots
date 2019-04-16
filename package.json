@@ -23,12 +23,12 @@
         "applitoolsUnderTestUrl": {
           "type": "string",
           "default": "http://localhost:3000",
-          "description": "Url in which you want to create screenshots when you run the Applitools WebView."
+          "description": "Url in which you want to create screenshots when you run the Applitools Screenshots WebView."
         },
         "applitoolsAPIKey": {
           "type": "string",
-          "default": "ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110",
-          "description": "The Applitools API key to use."
+          "default": "",
+          "description": "The Applitools API key to run the screenshots."
         },
         "applitoolsProxy": {
           "type": "string",
