@@ -13,4 +13,6 @@ Run following commands in the terminal
 npm install
 npm run build
 ```
-And then press F5, in Extension Development Host session, run `Applitools Screenshots` command from command palette.
+And then press F5. 
+In Extension Development Host session, configure the extension settings in the setting view (Ctrl+,). 
+After you set the configurations, run `Applitools Screenshots` command from command palette.
