@@ -1,11 +1,12 @@
-export enum eBrowser {
-    Chrome = 'chrome',
-    Firefox = 'firefox',
-    Opera = 'opera',
-    IE10 = 'ie10',
-    IE11 = 'ie11',
-    Edge = 'edge'
-}
+export const browsers = ['Chrome', 'Firefox']
+
+export const viewportSizes = [
+  '2560x1440',
+  '2048x1536',
+  '1920x1080',
+  '750x1334',
+  '720x1280',
+];
 
 export enum eSizeMode {
     Viewport = 'viewport',
@@ -14,6 +15,6 @@ export enum eSizeMode {
 
 export default class Browser {
     public readonly type = 'Browser';
-    constructor(public name: eBrowser, public width: number, public height: number) {
+    constructor(public name: string, public width: number, public height: number) {
     }
 }
