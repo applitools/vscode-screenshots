@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Input from '../Input/Input';
 import './settings.css';
+import { eSizeMode } from 'src/models/Browser';
 
 interface IProps {
     goBack: () => void,
@@ -14,6 +15,7 @@ interface IState {
 
 class SettingsComponent extends React.Component<IProps, IState> {
     public static defaultProps = {
+        settings: {}
     }  
     
     constructor(props: IProps) {
@@ -47,11 +49,18 @@ class SettingsComponent extends React.Component<IProps, IState> {
                 <button className="icon-button back-button" onClick={goBack}><i className="arrow-left" /></button>
                 <h2>Settings</h2> 
                 <div className="settings-container">
+                    <hr />
+                    <h3>General</h3>
                     <Input label="Website Url" name="applitoolsUnderTestUrl" onChange={this.settingsChanged} value={settings && settings.applitoolsUnderTestUrl} />
                     <Input label="API Key" name="applitoolsAPIKey" onChange={this.settingsChanged} value={settings && settings.applitoolsAPIKey} />
                     <Input label="Proxy" name="applitoolsProxy" onChange={this.settingsChanged} value={settings && settings.applitoolsProxy} />
                     <Input label="Server Url" name="applitoolsServerUrl" onChange={this.settingsChanged} value={settings && settings.applitoolsServerUrl} />
-                    <Input label="Size Mode" name="applitoolsSizeMode" onChange={this.noop} value={settings && settings.applitoolsSizeMode} />
+                    <hr />
+                    <h3>Size Mode</h3>
+                    <Input type="radio" label="Full Page" name="applitoolsSizeMode" onChange={this.settingsChanged} value={eSizeMode.FullPage} checked={settings && settings.applitoolsSizeMode === eSizeMode.FullPage} />
+                    <Input type="radio" label="Viewport" name="applitoolsSizeMode" onChange={this.settingsChanged} value={eSizeMode.Viewport} checked={settings && settings.applitoolsSizeMode === eSizeMode.Viewport} />
+                    <hr />
+                    <h3>Browsers</h3>
                     <Input label="Browsers" name="applitoolsBrowsers" onChange={this.noop} value={settings && settings.applitoolsBrowsers} />
                 </div>            
             </React.Fragment>

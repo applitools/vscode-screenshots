@@ -41,6 +41,8 @@ class App extends React.Component<IProps, IState> {
     const { vscode } = this.props;
     if (vscode) {
       vscode.postMessage({ command: 'settingsChanged', settings });
+    } else {
+      console.log(settings);
     }    
   }
 

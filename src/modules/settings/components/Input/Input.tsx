@@ -3,9 +3,11 @@ import './input.css';
 
 interface IProps {
     name: string,
-    label: string,
+    label?: string,
     value?: string,
-    onChange: (value: string, name: string) => void,
+    type?: string,
+    checked?: boolean,
+    onChange: (value: string, name: string) => void
 }
 
 export default class Input extends React.Component<IProps, {}> {
@@ -24,7 +26,7 @@ export default class Input extends React.Component<IProps, {}> {
         }); 
 
         return (
-            <div className="input">
+            <div className={`input ${this.props.type}`}>
                 {this.props.label && <label htmlFor={this.props.name}>{this.props.label}</label>}
                 <input {...props} />
             </div>

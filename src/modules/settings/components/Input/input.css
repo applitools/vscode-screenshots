@@ -4,6 +4,10 @@
     margin: 20px 0;
 }
 
+.input.radio {
+    flex-direction: row;
+}
+
 .input > label {
     font-size: 10px;
     font-weight: 600;
