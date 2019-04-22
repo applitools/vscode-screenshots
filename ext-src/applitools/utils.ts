@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import ScreenshotsService from './../services/SnapshotsService';
+import ScreenshotsService from '../services/ScreenshotsService';
 import { eSizeMode } from '../../src/models/Browser';
 
 export const getSettings = () => {
