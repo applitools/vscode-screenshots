@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { css } from '@emotion/core';
 import App from './App';
 // import Screenshot from './models/Screenshot';
-// import Browser, { eBrowser } from './models/Browser';
+// import Browser, { eSizeMode, browsers } from './models/Browser';
 import './index.css';
 
 declare const acquireVsCodeApi: any;
@@ -34,17 +34,18 @@ window.addEventListener('message', evt => {
     vscode = acquireVsCodeApi();
   }
   // const screenshots = [
-  //   new Screenshot(new Browser(eBrowser.Chrome, 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
-  //   new Screenshot(new Browser(eBrowser.Edge, 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
-  //   new Screenshot(new Browser(eBrowser.Firefox, 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
-  //   new Screenshot(new Browser(eBrowser.Opera, 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
-  //   new Screenshot(new Browser(eBrowser.IE11, 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
+  //   new Screenshot(new Browser(browsers[0], 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
+  //   new Screenshot(new Browser(browsers[1], 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
+  //   new Screenshot(new Browser(browsers[0], 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
+  //   new Screenshot(new Browser(browsers[1], 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
+  //   new Screenshot(new Browser(browsers[0], 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
   // ];
   // const settings = {
-  //   url:'http://www.google.co.il',
-  //   serverUrl: 'http://www.google.com',
-  //   apiKey: 'ashdjhasdjsad',
-  //   proxy: undefined,
+  //   applitoolsUnderTestUrl:'http://www.google.co.il',
+  //   applitoolsServerUrl: 'http://www.google.com',
+  //   applitoolsAPIKey: 'ashdjhasdjsad',
+  //   applitoolsProxy: undefined,
+  //   applitoolsSizeMode: eSizeMode.Viewport
   // }
     
   ReactDOM.render(

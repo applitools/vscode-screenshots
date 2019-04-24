@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import ScreenshotsService from '../services/ScreenshotsService';
 import { eSizeMode } from '../../src/models/Browser';
+import { DEFAULT_SERVER_URL, DEFAULT_BROWSERS, DEFAULT_TARGET } from './consts';
 
 export const getSettings = () => {
   const config = vscode.workspace.getConfiguration();
@@ -8,9 +9,9 @@ export const getSettings = () => {
     applitoolsUnderTestUrl: config.get('applitoolsUnderTestUrl') as string,
     applitoolsAPIKey: config.get('applitoolsAPIKey') as string,
     applitoolsProxy: config.get('applitoolsProxy') as string,
-    applitoolsServerUrl: config.get('applitoolsServerUrl') as string,
-    applitoolsSizeMode: config.get('applitoolsSizeMode') as eSizeMode,
-    applitoolsBrowsers: (config.get('applitoolsBrowsers') as any).browsers
+    applitoolsServerUrl: config.get('applitoolsServerUrl') as string || DEFAULT_SERVER_URL,
+    applitoolsSizeMode: config.get('applitoolsSizeMode') as eSizeMode || DEFAULT_TARGET,
+    applitoolsBrowsers: (config.get('applitoolsBrowsers') as any).browsers || DEFAULT_BROWSERS
   }
 }
 

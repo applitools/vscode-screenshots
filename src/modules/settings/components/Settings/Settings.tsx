@@ -56,7 +56,7 @@ class SettingsComponent extends React.Component<IProps, IState> {
                     <Input label="Proxy" name="applitoolsProxy" onChange={this.settingsChanged} value={settings && settings.applitoolsProxy} />
                     <Input label="Server Url" name="applitoolsServerUrl" onChange={this.settingsChanged} value={settings && settings.applitoolsServerUrl} />
                     <hr />
-                    <h3>Size Mode</h3>
+                    <h3>Target</h3>
                     <Input type="radio" label="Full Page" name="applitoolsSizeMode" onChange={this.settingsChanged} value={eSizeMode.FullPage} checked={settings && settings.applitoolsSizeMode === eSizeMode.FullPage} />
                     <Input type="radio" label="Viewport" name="applitoolsSizeMode" onChange={this.settingsChanged} value={eSizeMode.Viewport} checked={settings && settings.applitoolsSizeMode === eSizeMode.Viewport} />
                     <hr />
