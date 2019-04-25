@@ -7,6 +7,7 @@ interface IProps {
     value?: string,
     type?: string,
     checked?: boolean,
+    required?: boolean,
     onChange: (value: string, name: string) => void
 }
 

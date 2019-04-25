@@ -24,6 +24,7 @@ const ScreenshotsComponent: React.FunctionComponent<IProps> = (props) => {
             <ul>
                 {props.screenshots.map((screenshot, index) => createScreenshot(screenshot, index))}
             </ul>
+            {props.screenshots.length === 0 ? <h2>No screenshots. Try to change your Applitools settings and take screenshots again.</h2> : undefined}
         </React.Fragment>
     );
 };

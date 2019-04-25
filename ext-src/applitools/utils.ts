@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import ScreenshotsService from '../services/ScreenshotsService';
 import { eSizeMode } from '../../src/models/Browser';
+import { eErrors } from '../../src/modules/common/utils';
 import { DEFAULT_SERVER_URL, DEFAULT_BROWSERS, DEFAULT_TARGET } from './consts';
 
 export const getSettings = () => {
@@ -16,21 +17,31 @@ export const getSettings = () => {
 }
 
 export const updateSettings = (settings: any) => {
-  const config = vscode.workspace.getConfiguration();
-  Object.keys(settings).forEach(key => {
-    if (key === 'applitoolsBrowsers') {
-      config.update(key, { browsers: settings[key] });
-    } else {
-      config.update(key, settings[key], true);
-    }    
+  return new Promise((resolve)=> {
+    const updates: Thenable<void>[] = [];
+    const config = vscode.workspace.getConfiguration();
+    Object.keys(settings).forEach(key => {
+      if (key === 'applitoolsBrowsers') {
+        updates.push(config.update(key, { browsers: settings[key] }));
+      } else {
+        updates.push(config.update(key, settings[key], true));
+      }    
+    });
+    Promise.all(updates).then(() => {
+      resolve();
+    });
   });
 }
 
 export const runApplitoolsScreenshots = () => {
   const { applitoolsUnderTestUrl, applitoolsAPIKey, applitoolsProxy, applitoolsServerUrl, applitoolsSizeMode, applitoolsBrowsers } = getSettings();
-  if (applitoolsUnderTestUrl && applitoolsAPIKey && applitoolsServerUrl && applitoolsSizeMode && applitoolsBrowsers) {
+  if (!applitoolsAPIKey) {
+    return Promise.resolve(eErrors.NoAPIKey);
+  }
+  if (applitoolsUnderTestUrl && applitoolsServerUrl && applitoolsSizeMode && applitoolsBrowsers) {
     const screenshotsService = new ScreenshotsService(applitoolsAPIKey, applitoolsBrowsers, applitoolsProxy ? applitoolsProxy : undefined, applitoolsServerUrl, applitoolsSizeMode, applitoolsUnderTestUrl);
     return screenshotsService.takeScreenshots();
+  } else {
+    return Promise.resolve(eErrors.MissingSettings);
   }
-  return null;
 } 

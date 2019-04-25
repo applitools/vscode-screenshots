@@ -1,7 +1,8 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 import Screenshot from '../../src/models/Screenshot';
-import { updateSettings } from './utils';
+import { eErrors } from '../../src/modules/common/utils';
+import { updateSettings, getSettings, runApplitoolsScreenshots } from './utils';
 
 export default class ApplitoolsWebViewPanel {
 	/**
@@ -51,10 +52,21 @@ export default class ApplitoolsWebViewPanel {
 		// Handle messages from the webview
 		this._panel.webview.onDidReceiveMessage(message => {
 			switch (message.command) {			
-				case 'settingsChanged': {
-					/// TODO: changed the user settings according to the change
-					updateSettings(message.settings);
-					return;
+				case 'settingsChanged': {		
+					updateSettings(message.settings).then(() => {
+						this._panel.webview.postMessage({ settings: getSettings(), error: undefined });
+					});										
+					break;
+				}
+				case 'takeScreenshot': {			
+					if (message.settings) {
+						updateSettings(message.settings).then(async () => {
+							this.takeScreenshots();
+						});
+					} else {
+						this.takeScreenshots();
+					}
+					break;
 				}
 			}
 		}, null, this._disposables);
@@ -62,12 +74,12 @@ export default class ApplitoolsWebViewPanel {
 
 	public sendScreenshots(screenshots: Screenshot[], settings: any) {
 		// Send a message to the webview webview with snapshots.
-		this._panel.webview.postMessage({ screenshots: screenshots, settings });
+		this._panel.webview.postMessage({ screenshots: screenshots, settings, error: undefined });
 	}
 
-	public sendError(message: string) {
-		// Send a message to the webview webview with error message.
-		this._panel.webview.postMessage({ error: message });
+	public sendError(errorType: eErrors) {
+		// Send a error type to the webview.
+		this._panel.webview.postMessage({ error: errorType });
 	}
 
 	public dispose() {
@@ -81,6 +93,19 @@ export default class ApplitoolsWebViewPanel {
 			if (x) {
 				x.dispose();
 			}
+		}
+	}
+
+	private async takeScreenshots() {
+		const screenshots = await runApplitoolsScreenshots();
+		if (Array.isArray(screenshots) && ApplitoolsWebViewPanel.currentPanel) {						
+			this.sendScreenshots(screenshots, getSettings());
+		} 
+		if (typeof screenshots === 'number' && ApplitoolsWebViewPanel.currentPanel) {
+			this.sendError(screenshots);
+		}
+		if (!screenshots && ApplitoolsWebViewPanel.currentPanel) {
+			this.sendError(eErrors.FailedToTakeScreenshots);
 		}
 	}
 

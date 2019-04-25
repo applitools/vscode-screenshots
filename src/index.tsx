@@ -7,6 +7,7 @@ import App from './App';
 import './index.css';
 
 declare const acquireVsCodeApi: any;
+let vscode: any;
 
 const ClipLoader = require('react-spinners').ClipLoader;
 const override = css`
@@ -28,12 +29,12 @@ ReactDOM.render(
 );
 
 window.addEventListener('message', evt => {
-  const { error, screenshots, settings } = evt.data; 
-  let vscode;
-  if (typeof acquireVsCodeApi === 'function') {
+  if (typeof acquireVsCodeApi === 'function' && !vscode) {
     vscode = acquireVsCodeApi();
   }
-  // const screenshots = [
+
+  const { error, screenshots, settings } = evt.data; 
+  // const screenshots: Screenshot[] = [
   //   new Screenshot(new Browser(browsers[0], 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
   //   new Screenshot(new Browser(browsers[1], 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
   //   new Screenshot(new Browser(browsers[0], 800, 600), 'https://eyesapi.applitools.com/api/sessions/running/data/1555230650_8b95583b-2ba6-4109-9d43-861562b5621c?accessKey=ekvzokSTejkQaWuPdbFZLxZAsyoBOda8v3Mk77iGFzA110'),
@@ -43,7 +44,7 @@ window.addEventListener('message', evt => {
   // const settings = {
   //   applitoolsUnderTestUrl:'http://www.google.co.il',
   //   applitoolsServerUrl: 'http://www.google.com',
-  //   applitoolsAPIKey: 'ashdjhasdjsad',
+  //   applitoolsAPIKey: '',
   //   applitoolsProxy: undefined,
   //   applitoolsSizeMode: eSizeMode.Viewport
   // }

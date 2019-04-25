@@ -3,12 +3,14 @@ import Screenshot from './models/Screenshot';
 import ScreenshotsComponent from './modules/snapshots/components/Screenshots/Screenshots';
 import ScreenshotComponent from './modules/snapshots/components/Screenshot/Screenshot';
 import Settings from './modules/settings/components/Settings/Settings';
+import { eErrors } from './modules/common/utils';
+import WelcomeComponent from './modules/welcome/components/Welcome/Welcome';
 import Cog from './images/svg/cog.svg'; 
 import './App.css';
 
 interface IProps {
   screenshots: Screenshot[],
-  error: string,
+  error: eErrors,
   settings: any,
   vscode: any
 };
@@ -29,6 +31,7 @@ class App extends React.Component<IProps, IState> {
     this.chooseScreenshot = this.chooseScreenshot.bind(this);
     this.toggleSettings = this.toggleSettings.bind(this);
     this.settingsChanged = this.settingsChanged.bind(this);
+    this.takeScreenshot = this.takeScreenshot.bind(this);
   }
 
   public chooseScreenshot(screenshot: Screenshot) {
@@ -41,9 +44,14 @@ class App extends React.Component<IProps, IState> {
     const { vscode } = this.props;
     if (vscode) {
       vscode.postMessage({ command: 'settingsChanged', settings });
-    } else {
-      console.log(settings);
-    }    
+    }   
+  }
+
+  public takeScreenshot(settings: any) {
+    const { vscode } = this.props;
+    if (vscode) {
+      vscode.postMessage({ command: 'takeScreenshot', settings });
+    }   
   }
 
   public toggleSettings() {
@@ -57,10 +65,10 @@ class App extends React.Component<IProps, IState> {
   public renderSettings() {
     const { settings } = this.props;
     const { showSettings } = this.state;
-    return showSettings ? <Settings goBack={this.toggleSettings} settingsChanged={this.settingsChanged} settings={settings} /> : undefined 
+    return showSettings ? <Settings goBack={this.toggleSettings} settingsChanged={this.settingsChanged} settings={settings} takeScreenshot={this.takeScreenshot} /> : undefined 
   }
 
-  public renderSnapshots() {
+  public renderScreenshots() {
     const { screenshots } = this.props;
     const { screenshot, showSettings } = this.state;
 
@@ -76,13 +84,24 @@ class App extends React.Component<IProps, IState> {
     const { error } = this.props;
     const { showSettings } = this.state;
 
-    if (!showSettings) {
-      return error ? <h2>Error occurred: {error}</h2> : undefined;
+    if (!showSettings && error) {
+      switch (error) {
+        case eErrors.NoAPIKey: {
+          return <WelcomeComponent takeScreenshot={this.takeScreenshot} />;
+        }
+        case eErrors.MissingSettings: {
+          break;
+        }
+        default: {
+          return <h2>Unknown error occurred</h2>;
+        }
+      }
     }
     return undefined;
   }
 
   public render() {
+    const { error } = this.props;
     const { showSettings } = this.state;
 
     return (
@@ -91,9 +110,9 @@ class App extends React.Component<IProps, IState> {
           <h1 className="app-title">Applitools Screenshots <img src={Cog} onClick={this.toggleSettings} hidden={showSettings} /></h1>
         </header>
         <div className="app-intro">
-          {this.renderSettings()}
-          {this.renderSnapshots()}
-          {this.renderErrors()}
+          {!error && this.renderSettings()}
+          {!error && this.renderScreenshots()}
+          {error && this.renderErrors()}
         </div>
       </div>
     );

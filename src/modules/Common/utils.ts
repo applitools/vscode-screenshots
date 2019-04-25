@@ -1,5 +1,11 @@
-import Browser from '../../../src/models/Browser';
-import Device, { eScreenOrientation } from '../../../src/models/Device';
+import Browser from '../../models/Browser';
+import Device, { eScreenOrientation } from '../../models/Device';
+
+export enum eErrors {
+  NoAPIKey = 1,
+  MissingSettings,
+  FailedToTakeScreenshots
+};
 
 export const parseBrowsers = (
     browsers = ['Chrome'],

@@ -6,6 +6,7 @@ import { eSizeMode } from 'src/models/Browser';
 interface IProps {
     goBack: () => void,
     settingsChanged: (settings: any) => void,
+    takeScreenshot: (settings: any) => void,
     settings: any 
 };
 
@@ -24,6 +25,7 @@ class SettingsComponent extends React.Component<IProps, IState> {
             settings: props.settings
         };
         this.settingsChanged = this.settingsChanged.bind(this);
+        this.takeScreenshot = this.takeScreenshot.bind(this);
     }
 
     public noop() {
@@ -38,6 +40,16 @@ class SettingsComponent extends React.Component<IProps, IState> {
 
         if (settingsChanged) {
             settingsChanged(newState);
+        }
+    }
+
+    public takeScreenshot() {
+        const { goBack, takeScreenshot } = this.props;
+        if (goBack) {
+            goBack();
+        }
+        if (takeScreenshot) {
+            takeScreenshot(undefined);
         }
     }
 
@@ -62,6 +74,7 @@ class SettingsComponent extends React.Component<IProps, IState> {
                     <hr />
                     <h3>Browsers</h3>
                     <Input label="Browsers" name="applitoolsBrowsers" onChange={this.noop} value={settings && settings.applitoolsBrowsers} />
+                    <button onClick={this.takeScreenshot}>Take Screenshot</button>
                 </div>            
             </React.Fragment>
         );
