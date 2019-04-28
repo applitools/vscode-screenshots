@@ -33,7 +33,7 @@ const ScreenshotComponent: React.FunctionComponent<IProps> = (props) => {
         <React.Fragment>
             {standalone ? <button className="icon-button back-button" onClick={backButtonClicked}><i className="arrow-left" /></button> : undefined}
             <Img onClick={screenshotClicked} 
-                loader={<Loader css={override} loading={true} />} 
+                loader={<Loader overrideCss={override} loading={true} />} 
                 src={screenshot.screenshotUrl} 
                 alt={`screenshot for ${browser.type === 'Device' ? browser.deviceName : browser.name}`}
             />

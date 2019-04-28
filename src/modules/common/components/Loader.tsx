@@ -11,15 +11,15 @@ const override = css`
 
 interface IProps  {
     loading: boolean,
-    style?: SerializedStyles
+    overrideCss?: SerializedStyles
 }
 
 export default class Loader extends React.Component<IProps> {
     public render() {
-        const { loading, style } = this.props;
+        const { loading, overrideCss } = this.props;
     
         return (
-            <ClipLoader loading={loading} css={style ? style : override} sizeUnit={'px'} size={35} color={'#36D7B7'} />
+            <ClipLoader loading={loading} css={overrideCss ? overrideCss : override} sizeUnit="px" size={35} color={'#36D7B7'} />
         );
     }
 }
