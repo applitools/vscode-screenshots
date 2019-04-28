@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Input from '../Input/Input';
+import BrowsersSelector from '../BrowsersSelector/BrowsersSelector';
+import { eSizeMode } from '../../../../models/Browser';
 import './settings.css';
-import { eSizeMode } from 'src/models/Browser';
 
 interface IProps {
     goBack: () => void,
@@ -32,7 +33,7 @@ class SettingsComponent extends React.Component<IProps, IState> {
         console.log('noop');
     }
 
-    public settingsChanged(value: string, name: string) {
+    public settingsChanged(value: any, name: string) {
         const { settingsChanged } = this.props;
 
         const newState = Object.assign(this.state.settings, { [name]: value });
@@ -73,7 +74,7 @@ class SettingsComponent extends React.Component<IProps, IState> {
                     <Input type="radio" label="Viewport" name="applitoolsSizeMode" onChange={this.settingsChanged} value={eSizeMode.Viewport} checked={settings && settings.applitoolsSizeMode === eSizeMode.Viewport} />
                     <hr />
                     <h3>Browsers</h3>
-                    <Input label="Browsers" name="applitoolsBrowsers" onChange={this.noop} value={settings && settings.applitoolsBrowsers} />
+                    <BrowsersSelector selectedBrowsers={settings && settings.applitoolsBrowsers} onChange={this.settingsChanged} />
                     <button onClick={this.takeScreenshot}>Take Screenshot</button>
                 </div>            
             </React.Fragment>

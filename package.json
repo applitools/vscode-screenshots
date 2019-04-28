@@ -46,21 +46,19 @@
           "description": "The target mode to use in screenshots. Can be either full-page or viewport."
         },
         "applitoolsBrowsers": {
-          "type": "object",
-          "default": {
-            "browsers": [
-              {
-                "name": "chrome",
-                "width": 1024,
-                "height": 768
-              },
-              {
-                "name": "firefox",
-                "width": 1024,
-                "height": 768
-              }
-            ]
-          },
+          "type": "array",
+          "default": [
+            {
+              "name": "chrome",
+              "width": 1024,
+              "height": 768
+            },
+            {
+              "name": "firefox",
+              "width": 1024,
+              "height": 768
+            }
+          ],
           "description": "The browsers to use in the screenshots webview."
         }
       }
@@ -69,12 +67,14 @@
   "dependencies": {
     "@applitools/dom-snapshot": "^1.0.7",
     "@applitools/visual-grid-client": "^12.6.0",
+    "@types/react-select": "^2.0.17",
     "prop-types": "^15.7.2",
     "puppeteer": "^1.12.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-image": "^2.1.1",
     "react-scripts-ts": "2.16.0",
+    "react-select": "^2.4.3",
     "react-spinners": "^0.5.4",
     "ws": "^6.2.1"
   },

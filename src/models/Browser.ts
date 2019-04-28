@@ -5,7 +5,7 @@ export const viewportSizes = [
   '2048x1536',
   '1920x1080',
   '750x1334',
-  '720x1280',
+  '720x1280'
 ];
 
 export enum eSizeMode {

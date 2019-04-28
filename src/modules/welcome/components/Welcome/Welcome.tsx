@@ -1,15 +1,7 @@
 import * as React from 'react';
 import SingleSettingsComponent from 'src/modules/settings/components/SingleSetting/SingleSettings';
-import { css } from '@emotion/core';
+import Loader from 'src/modules/common/components/Loader';
 import './welcome.css';
-
-const ClipLoader = require('react-spinners').ClipLoader;
-const override = css`
-    display: block;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-`;
 
 interface IProps {
     takeScreenshot: (settings: any) => void
@@ -68,7 +60,7 @@ class WelcomeComponent extends React.Component<IProps, IState> {
                         settingName="applitoolsUnderTestUrl"
                         buttonLabel="Take Screenshot"
                 /> : undefined}
-                {<ClipLoader css={override} sizeUnit={"px"} size={35} color={'#36D7B7'} loading={loading} />}
+                {<Loader loading={loading} />}
             </React.Fragment>
         );
     }

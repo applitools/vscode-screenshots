@@ -1,5 +1,5 @@
 import Browser from '../../models/Browser';
-import Device, { eScreenOrientation } from '../../models/Device';
+// import Device, { eScreenOrientation } from '../../models/Device';
 
 export enum eErrors {
   NoAPIKey = 1,
@@ -9,11 +9,11 @@ export enum eErrors {
 
 export const parseBrowsers = (
     browsers = ['Chrome'],
-    viewports = ['1920x1080'],
-    devices = [],
-    orientations = ['Portrait']
+    viewports = ['1920x1080']
+    // devices = [],
+    // orientations = ['Portrait']
   ) => {
-    const matrix: Array<Browser | Device> = [];
+    const matrix: Browser[] = [];
     browsers.forEach(browser => {
       const name = browser.toLowerCase();
       viewports.forEach(viewport => {
@@ -21,11 +21,11 @@ export const parseBrowsers = (
         matrix.push(new Browser(name, width, height));
       })
     });
-    devices.forEach(device => {
-      orientations.forEach(orientation => {
-        matrix.push(new Device(device, orientation.toLowerCase() as eScreenOrientation));
-      })
-    })
+    // devices.forEach(device => {
+    //   orientations.forEach(orientation => {
+    //     matrix.push(new Device(device, orientation.toLowerCase() as eScreenOrientation));
+    //   })
+    // })
     return matrix;
   }
 

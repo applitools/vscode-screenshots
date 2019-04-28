@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { css } from '@emotion/core';
+import Loader from './modules/common/components/Loader';
 import App from './App';
 // import Screenshot from './models/Screenshot';
 // import Browser, { eSizeMode, browsers } from './models/Browser';
@@ -9,22 +9,8 @@ import './index.css';
 declare const acquireVsCodeApi: any;
 let vscode: any;
 
-const ClipLoader = require('react-spinners').ClipLoader;
-const override = css`
-    display: block;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-`;
-
 ReactDOM.render(
-  <ClipLoader
-    css={override}
-    sizeUnit={"px"}
-    size={35}
-    color={'#36D7B7'}
-    loading={true}
-  />,
+  <Loader loading={true} />,
   document.getElementById('root') as HTMLElement
 );
 
@@ -46,7 +32,11 @@ window.addEventListener('message', evt => {
   //   applitoolsServerUrl: 'http://www.google.com',
   //   applitoolsAPIKey: '',
   //   applitoolsProxy: undefined,
-  //   applitoolsSizeMode: eSizeMode.Viewport
+  //   applitoolsSizeMode: eSizeMode.Viewport,
+  //   applitoolsBrowsers: [
+  //     new Browser(browsers[0], 2560, 1440),
+  //     new Browser(browsers[1], 2560, 1440)
+  //   ]
   // }
     
   ReactDOM.render(

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import ScreenshotsService from '../services/ScreenshotsService';
-import { eSizeMode } from '../../src/models/Browser';
+import Browser, { eSizeMode } from '../../src/models/Browser';
 import { eErrors } from '../../src/modules/common/utils';
 import { DEFAULT_SERVER_URL, DEFAULT_BROWSERS, DEFAULT_TARGET } from './consts';
 
@@ -12,7 +12,7 @@ export const getSettings = () => {
     applitoolsProxy: config.get('applitoolsProxy') as string,
     applitoolsServerUrl: config.get('applitoolsServerUrl') as string || DEFAULT_SERVER_URL,
     applitoolsSizeMode: config.get('applitoolsSizeMode') as eSizeMode || DEFAULT_TARGET,
-    applitoolsBrowsers: (config.get('applitoolsBrowsers') as any).browsers || DEFAULT_BROWSERS
+    applitoolsBrowsers: config.get('applitoolsBrowsers') as Browser[] || DEFAULT_BROWSERS
   }
 }
 
@@ -21,11 +21,7 @@ export const updateSettings = (settings: any) => {
     const updates: Thenable<void>[] = [];
     const config = vscode.workspace.getConfiguration();
     Object.keys(settings).forEach(key => {
-      if (key === 'applitoolsBrowsers') {
-        updates.push(config.update(key, { browsers: settings[key] }));
-      } else {
-        updates.push(config.update(key, settings[key], true));
-      }    
+      updates.push(config.update(key, settings[key], true))    
     });
     Promise.all(updates).then(() => {
       resolve();

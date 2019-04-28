@@ -2,10 +2,10 @@ import * as React from 'react';
 import { css } from '@emotion/core';
 import Screenshot from '../../../../models/Screenshot';
 import BrowserDetailsComponent from '../BrowserDetails/BrowserDetails';
+import Loader from '../../../../modules/common/components/Loader';
 import './screenshot.css';
 
 const Img = require('react-image');
-const ClipLoader = require('react-spinners').ClipLoader;
 
 const override = css`
     display: block;
@@ -33,7 +33,7 @@ const ScreenshotComponent: React.FunctionComponent<IProps> = (props) => {
         <React.Fragment>
             {standalone ? <button className="icon-button back-button" onClick={backButtonClicked}><i className="arrow-left" /></button> : undefined}
             <Img onClick={screenshotClicked} 
-                loader={<ClipLoader css={override} sizeUnit={"px"} size={35} color={'#36D7B7'} loading={true} />} 
+                loader={<Loader css={override} loading={true} />} 
                 src={screenshot.screenshotUrl} 
                 alt={`screenshot for ${browser.type === 'Device' ? browser.deviceName : browser.name}`}
             />
