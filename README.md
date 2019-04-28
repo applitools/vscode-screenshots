@@ -11,6 +11,7 @@ Run following commands in the terminal
 
 ```shell
 npm install
+npm install -g vsce
 npm run build
 ```
 And then press F5. 
