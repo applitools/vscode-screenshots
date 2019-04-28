@@ -28,7 +28,7 @@ export default class BrowsersSelector extends React.Component<IProps, IState> {
         const values = value.map((v: any) => v.value);
         let newBrowsersState: Browser[] = [];
         if (action.name === 'viewports') {
-            newBrowsersState = parseBrowsers(selectedBrowsers.map(b => b.name), values);
+            newBrowsersState = parseBrowsers(this.getUniqueBrowsers(selectedBrowsers), values);
         } else {
             newBrowsersState = parseBrowsers(values, this.getUniqueViewports(selectedBrowsers));
         }

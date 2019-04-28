@@ -5,6 +5,7 @@ import ScreenshotComponent from './modules/snapshots/components/Screenshot/Scree
 import Settings from './modules/settings/components/Settings/Settings';
 import { eErrors } from './modules/common/utils';
 import WelcomeComponent from './modules/welcome/components/Welcome/Welcome';
+import Loader from './modules/common/components/Loader';
 import Cog from './images/svg/cog.svg'; 
 import './App.css';
 
@@ -17,13 +18,15 @@ interface IProps {
 
 interface IState {
   screenshot: Screenshot | undefined,
-  showSettings: boolean
+  showSettings: boolean,
+  loading: boolean
 }
 
 class App extends React.Component<IProps, IState> {
   public state: Readonly<IState> = {
     screenshot: undefined,
-    showSettings: false
+    showSettings: false,
+    loading: false
   };  
 
   constructor(props: IProps) {
@@ -49,6 +52,7 @@ class App extends React.Component<IProps, IState> {
 
   public takeScreenshot(settings: any) {
     const { vscode } = this.props;
+    this.setState({ loading: true });
     if (vscode) {
       vscode.postMessage({ command: 'takeScreenshot', settings });
     }   
@@ -70,9 +74,12 @@ class App extends React.Component<IProps, IState> {
 
   public renderScreenshots() {
     const { screenshots } = this.props;
-    const { screenshot, showSettings } = this.state;
+    const { screenshot, showSettings, loading } = this.state;
 
     if (!showSettings) {
+      if (loading) {
+        return <Loader loading={loading} />
+      }
       return (screenshot ? 
         <ScreenshotComponent screenshot={screenshot} chooseScreenshot={this.chooseScreenshot} standalone={true} /> :
         <ScreenshotsComponent screenshots={screenshots} chooseScreenshot={this.chooseScreenshot} />);
@@ -98,6 +105,14 @@ class App extends React.Component<IProps, IState> {
       }
     }
     return undefined;
+  }
+
+  public componentDidUpdate(prevProps: IProps) {
+    if (prevProps.screenshots !== this.props.screenshots) {
+      this.setState({
+        loading: false
+      });
+    }
   }
 
   public render() {
