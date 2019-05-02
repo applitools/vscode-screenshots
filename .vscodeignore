@@ -1,0 +1,8 @@
+**/*.ts
+**/*.tsx
+tsconfig.*.json
+tslint.json
+
+# dependencies
+src
+public

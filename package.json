@@ -67,13 +67,12 @@
   "dependencies": {
     "@applitools/dom-snapshot": "^1.0.7",
     "@applitools/visual-grid-client": "^12.6.0",
-    "@types/react-select": "^2.0.17",
     "prop-types": "^15.7.2",
     "puppeteer": "^1.12.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-image": "^2.1.1",
-    "react-scripts-ts": "2.16.0",
+    "react-pinch-zoom-pan": "^1.4.5",
     "react-select": "^2.4.3",
     "react-spinners": "^0.5.4",
     "ws": "^6.2.1"
@@ -93,6 +92,8 @@
     "typescript": "^2.8.3",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
+    "@types/react-select": "^2.0.17",
+    "react-scripts-ts": "2.16.0",
     "vscode": "^1.1.17"
   }
 }
