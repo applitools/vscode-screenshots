@@ -24,7 +24,7 @@ export default class ScreenshotsService {
             return Promise.resolve([]);
         }
 
-        const browser = await puppeteer.launch({executablePath: '/path/to/Chrome'});
+        const browser = await puppeteer.launch();
         const page = await browser.newPage();
         const processPageAndSerialize = `(${await getProcessPageAndSerializeScript()})()`;
         
