@@ -4,6 +4,7 @@ import Loader from 'src/modules/common/components/Loader';
 import './welcome.css';
 
 interface IProps {
+    url: string,
     takeScreenshot: (settings: any) => void
 };
 
@@ -14,14 +15,13 @@ interface IState {
 }
 
 class WelcomeComponent extends React.Component<IProps, IState> {
-    public state: Readonly<IState> = {
-        url: '',
-        loading: false,
-        settings: {}
-    };  
-
     constructor(props: IProps) {
         super(props);
+        this.state = {
+            url: props.url || '',
+            loading: false,
+            settings: {}
+        }
         this.takeScreenshot = this.takeScreenshot.bind(this);
     }
 

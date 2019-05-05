@@ -32,7 +32,7 @@
         },
         "applitoolsProxy": {
           "type": "string",
-          "default": "undefined",
+          "default": "",
           "description": "The Applitools Proxy Url key to use."
         },
         "applitoolsServerUrl": {

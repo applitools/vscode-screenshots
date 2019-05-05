@@ -87,7 +87,7 @@ class App extends React.Component<IProps, IState> {
   }
 
   public renderScreenshots() {
-    const { screenshots } = this.props;
+    const { screenshots, settings } = this.props;
     const { screenshot, showSettings, showUrl, loading } = this.state;
 
     if (!showSettings) {
@@ -98,7 +98,7 @@ class App extends React.Component<IProps, IState> {
         return (<ScreenshotComponent screenshot={screenshot} chooseScreenshot={this.chooseScreenshot} standalone={true} />);
       }
       if (showUrl) {
-        return (<WelcomeComponent takeScreenshot={this.takeScreenshot} />)
+        return (<WelcomeComponent takeScreenshot={this.takeScreenshot} url={settings.applitoolsUnderTestUrl} />)
       } else {
         return (<ScreenshotsComponent goBack={this.toggleShowUrl} screenshots={screenshots} chooseScreenshot={this.chooseScreenshot} />);
       }
