@@ -3,8 +3,9 @@ import Screenshot from './models/Screenshot';
 import ScreenshotsComponent from './modules/snapshots/components/Screenshots/Screenshots';
 import ScreenshotComponent from './modules/snapshots/components/Screenshot/Screenshot';
 import Settings from './modules/settings/components/Settings/Settings';
-import { eErrors } from './modules/common/utils';
+import MissingAPIKeyComponent from './modules/welcome/components/MissingAPIKey/MissingAPIKey';
 import WelcomeComponent from './modules/welcome/components/Welcome/Welcome';
+import { eErrors } from './modules/common/utils';
 import Loader from './modules/common/components/Loader';
 import Cog from './images/svg/cog.svg'; 
 import './App.css';
@@ -19,6 +20,7 @@ interface IProps {
 interface IState {
   screenshot: Screenshot | undefined,
   showSettings: boolean,
+  showUrl: boolean,
   loading: boolean
 }
 
@@ -26,7 +28,8 @@ class App extends React.Component<IProps, IState> {
   public state: Readonly<IState> = {
     screenshot: undefined,
     showSettings: false,
-    loading: false
+    loading: false,
+    showUrl: true
   };  
 
   constructor(props: IProps) {
@@ -35,6 +38,7 @@ class App extends React.Component<IProps, IState> {
     this.toggleSettings = this.toggleSettings.bind(this);
     this.settingsChanged = this.settingsChanged.bind(this);
     this.takeScreenshot = this.takeScreenshot.bind(this);
+    this.toggleShowUrl = this.toggleShowUrl.bind(this);
   }
 
   public chooseScreenshot(screenshot: Screenshot) {
@@ -52,7 +56,10 @@ class App extends React.Component<IProps, IState> {
 
   public takeScreenshot(settings: any) {
     const { vscode } = this.props;
-    this.setState({ loading: true });
+    this.setState({ 
+      loading: true,  
+      showUrl: false
+    });
     if (vscode) {
       vscode.postMessage({ command: 'takeScreenshot', settings });
     }   
@@ -66,6 +73,13 @@ class App extends React.Component<IProps, IState> {
    });
   }
 
+  public toggleShowUrl() {
+    const { showUrl } = this.state;
+    this.setState({
+      showUrl: !showUrl
+    });
+  }
+
   public renderSettings() {
     const { settings } = this.props;
     const { showSettings } = this.state;
@@ -74,15 +88,20 @@ class App extends React.Component<IProps, IState> {
 
   public renderScreenshots() {
     const { screenshots } = this.props;
-    const { screenshot, showSettings, loading } = this.state;
+    const { screenshot, showSettings, showUrl, loading } = this.state;
 
     if (!showSettings) {
       if (loading) {
         return <Loader loading={loading} />
       }
-      return (screenshot ? 
-        <ScreenshotComponent screenshot={screenshot} chooseScreenshot={this.chooseScreenshot} standalone={true} /> :
-        <ScreenshotsComponent screenshots={screenshots} chooseScreenshot={this.chooseScreenshot} />);
+      if (screenshot) {
+        return (<ScreenshotComponent screenshot={screenshot} chooseScreenshot={this.chooseScreenshot} standalone={true} />);
+      }
+      if (showUrl) {
+        return (<WelcomeComponent takeScreenshot={this.takeScreenshot} />)
+      } else {
+        return (<ScreenshotsComponent goBack={this.toggleShowUrl} screenshots={screenshots} chooseScreenshot={this.chooseScreenshot} />);
+      }
     }
     return undefined;
   }
@@ -94,7 +113,7 @@ class App extends React.Component<IProps, IState> {
     if (!showSettings && error) {
       switch (error) {
         case eErrors.NoAPIKey: {
-          return <WelcomeComponent takeScreenshot={this.takeScreenshot} />;
+          return <MissingAPIKeyComponent settingsChanged={this.settingsChanged} />;
         }
         case eErrors.MissingSettings: {
           break;

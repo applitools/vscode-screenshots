@@ -72,6 +72,11 @@ export default class ApplitoolsWebViewPanel {
 		}, null, this._disposables);
 	}
 
+	public start() {
+		// Send a error type to the webview.
+		this._panel.webview.postMessage({ settings: getSettings() });
+	}
+
 	public sendScreenshots(screenshots: Screenshot[], settings: any) {
 		// Send a message to the webview webview with snapshots.
 		this._panel.webview.postMessage({ screenshots: screenshots, settings, error: undefined });

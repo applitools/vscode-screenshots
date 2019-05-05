@@ -37,7 +37,7 @@ window.addEventListener('message', evt => {
   //     new Browser(browsers[0], 2560, 1440),
   //     new Browser(browsers[1], 2560, 1440)
   //   ]
-  // }
+  // };
     
   ReactDOM.render(
       <App screenshots={screenshots} error={error} settings={settings} vscode={vscode} />,

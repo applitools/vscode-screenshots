@@ -8,30 +8,21 @@ interface IProps {
 };
 
 interface IState {
-    APIKey: string,
     url: string,
-    showUrl: boolean,
     settings: any,
     loading: boolean
 }
 
 class WelcomeComponent extends React.Component<IProps, IState> {
     public state: Readonly<IState> = {
-        APIKey: '',
         url: '',
         loading: false,
-        showUrl: false,
         settings: {}
     };  
 
     constructor(props: IProps) {
         super(props);
         this.takeScreenshot = this.takeScreenshot.bind(this);
-        this.APIKeyChanged = this.APIKeyChanged.bind(this);
-    }
-
-    public APIKeyChanged(settings: any) {
-        this.setState({ showUrl: true, settings });
     }
 
     public takeScreenshot(settings: any) {
@@ -44,17 +35,11 @@ class WelcomeComponent extends React.Component<IProps, IState> {
     }
 
     public render() {
-        const { APIKey, url, showUrl, loading } = this.state;
+        const { url, loading } = this.state;
         return (
             <React.Fragment>                
                 <h2>Welcome to Applitools Eyes Screenshots</h2>
-                {!showUrl && !loading ? <SingleSettingsComponent message="Please enter your Applitools API key:" 
-                    setting={APIKey} 
-                    saveSetting={this.APIKeyChanged}
-                    settingName="applitoolsAPIKey"
-                    buttonLabel="Save API Key" 
-                /> : undefined}
-                {showUrl && !loading ? <SingleSettingsComponent message="Please enter screenshot Url:" 
+                {!loading ? <SingleSettingsComponent message="Please enter screenshot Url:" 
                         setting={url} 
                         saveSetting={this.takeScreenshot}
                         settingName="applitoolsUnderTestUrl"

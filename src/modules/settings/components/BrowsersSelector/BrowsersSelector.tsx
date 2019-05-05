@@ -70,8 +70,12 @@ export default class BrowsersSelector extends React.Component<IProps, IState> {
     }
 
     private getViewPorts(selectedBrowsers: Browser[]) {
-        const uniqueViewports = this.getUniqueViewports(selectedBrowsers);
-        return uniqueViewports.map(viewport => ({ value: viewport, label: viewport }));
+        if (selectedBrowsers) {
+            const uniqueViewports = this.getUniqueViewports(selectedBrowsers);
+            return uniqueViewports.map(viewport => ({ value: viewport, label: viewport }));
+        } else {
+            return [];
+        }
     }
 
     private getViewport(browser: Browser) {
@@ -84,7 +88,11 @@ export default class BrowsersSelector extends React.Component<IProps, IState> {
     }
 
     private getBrowsers(selectedBrowsers: Browser[]) {
-        const uniqueBrowsers = this.getUniqueBrowsers(selectedBrowsers);
-        return uniqueBrowsers.map(browser => ({ value: browser, label: browser }));
+        if (selectedBrowsers) {
+            const uniqueBrowsers = this.getUniqueBrowsers(selectedBrowsers);
+            return uniqueBrowsers.map(browser => ({ value: browser, label: browser }));
+        } else {
+            return [];
+        }
     }
 }

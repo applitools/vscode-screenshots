@@ -5,11 +5,12 @@ import './screenshots.css';
 
 interface IProps { 
     screenshots: Screenshot[],
+    goBack: () => void,
     chooseScreenshot: (screenshot: Screenshot) => void
  };
 
 const ScreenshotsComponent: React.FunctionComponent<IProps> = (props) => {
-    const { chooseScreenshot } = props;
+    const { goBack, chooseScreenshot } = props;
 
     const createScreenshot = (screenshot: Screenshot, index: number) => {
         return (
@@ -21,6 +22,7 @@ const ScreenshotsComponent: React.FunctionComponent<IProps> = (props) => {
 
     return (
         <React.Fragment>
+            <button className="icon-button back-button" onClick={goBack}><i className="arrow-left" /></button>
             <ul>
                 {props.screenshots.map((screenshot, index) => createScreenshot(screenshot, index))}
             </ul>

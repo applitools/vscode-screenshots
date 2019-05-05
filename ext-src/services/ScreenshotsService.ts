@@ -1,7 +1,8 @@
+import * as puppeteer from 'puppeteer';
 import Browser, { eSizeMode } from '../../src/models/Browser';
 import Device from '../../src/models/Device';
 import Snapshot from '../../src/models/Screenshot';
-const puppeteer = require('puppeteer');
+
 const { getProcessPageAndSerializeScript } = require('@applitools/dom-snapshot');
 const takeScreenshot = require('@applitools/visual-grid-client/src/sdk/takeScreenshot');
 

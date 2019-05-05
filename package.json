@@ -49,12 +49,12 @@
           "type": "array",
           "default": [
             {
-              "name": "chrome",
+              "name": "Chrome",
               "width": 1024,
               "height": 768
             },
             {
-              "name": "firefox",
+              "name": "Firefox",
               "width": 1024,
               "height": 768
             }
@@ -67,7 +67,6 @@
   "dependencies": {
     "@applitools/dom-snapshot": "^1.0.7",
     "@applitools/visual-grid-client": "^12.6.0",
-    "prop-types": "^15.7.2",
     "puppeteer": "^1.12.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -80,7 +79,7 @@
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
     "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build && tsc -p tsconfig.extension.json && npm run package",
+    "build": "react-scripts-ts build && tsc -p tsconfig.extension.json",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "package": "vsce package --yarn",
@@ -89,11 +88,13 @@
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/node": "^10.1.2",
-    "typescript": "^2.8.3",
+    "@types/puppeteer": "^1.12.4",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
     "@types/react-select": "^2.0.17",
     "react-scripts-ts": "2.16.0",
+    "ts-loader": "^5.4.5",
+    "typescript": "^2.8.3",
     "vscode": "^1.1.17"
   }
 }
