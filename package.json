@@ -49,12 +49,12 @@
           "type": "array",
           "default": [
             {
-              "name": "Chrome",
+              "name": "chrome",
               "width": 1024,
               "height": 768
             },
             {
-              "name": "Firefox",
+              "name": "firefox",
               "width": 1024,
               "height": 768
             }

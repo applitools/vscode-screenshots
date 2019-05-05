@@ -1,4 +1,4 @@
-export const browsers = ['Chrome', 'Firefox']
+export const browsers = ['chrome', 'firefox']
 
 export const viewportSizes = [
   '2560x1440',
