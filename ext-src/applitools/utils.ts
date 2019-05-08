@@ -11,7 +11,7 @@ export const getSettings = () => {
     applitoolsAPIKey: config.get('applitoolsAPIKey') as string,
     applitoolsProxy: config.get('applitoolsProxy') as string,
     applitoolsServerUrl: config.get('applitoolsServerUrl') as string || DEFAULT_SERVER_URL,
-    applitoolsSizeMode: config.get('applitoolsSizeMode') as eSizeMode || DEFAULT_TARGET,
+    applitoolsTarget: config.get('applitoolsTarget') as eSizeMode || DEFAULT_TARGET,
     applitoolsBrowsers: config.get('applitoolsBrowsers') as Browser[] || DEFAULT_BROWSERS
   }
 }
@@ -30,14 +30,22 @@ export const updateSettings = (settings: any) => {
 }
 
 export const runApplitoolsScreenshots = () => {
-  const { applitoolsUnderTestUrl, applitoolsAPIKey, applitoolsProxy, applitoolsServerUrl, applitoolsSizeMode, applitoolsBrowsers } = getSettings();
+  const { applitoolsUnderTestUrl, applitoolsAPIKey, applitoolsProxy, applitoolsServerUrl, applitoolsTarget, applitoolsBrowsers } = getSettings();
   if (!applitoolsAPIKey) {
     return Promise.resolve(eErrors.NoAPIKey);
   }
-  if (applitoolsUnderTestUrl && applitoolsServerUrl && applitoolsSizeMode && applitoolsBrowsers) {
-    const screenshotsService = new ScreenshotsService(applitoolsAPIKey, applitoolsBrowsers, applitoolsProxy ? applitoolsProxy : undefined, applitoolsServerUrl, applitoolsSizeMode, applitoolsUnderTestUrl);
+  if (applitoolsUnderTestUrl && applitoolsServerUrl && applitoolsTarget && applitoolsBrowsers) {
+    const screenshotsService = new ScreenshotsService(applitoolsAPIKey, applitoolsBrowsers, applitoolsProxy ? applitoolsProxy : undefined, applitoolsServerUrl, applitoolsTarget, applitoolsUnderTestUrl);
     return screenshotsService.takeScreenshots();
   } else {
     return Promise.resolve(eErrors.MissingSettings);
   }
 } 
+
+export const getBrowserPath= () => {
+  if (process.platform === 'win32') {
+    return 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe';
+  } else {
+    return '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  }
+}

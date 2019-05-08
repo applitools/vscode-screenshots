@@ -92,7 +92,12 @@ class App extends React.Component<IProps, IState> {
 
     if (!showSettings) {
       if (loading) {
-        return <Loader loading={loading} />
+        return (
+          <div>
+            <div>{`Running Applitools screenshots on: ${settings.applitoolsUnderTestUrl}`}</div>
+            <Loader loading={loading} />
+          </div>
+        );
       }
       if (screenshot) {
         return (<ScreenshotComponent screenshot={screenshot} chooseScreenshot={this.chooseScreenshot} standalone={true} />);

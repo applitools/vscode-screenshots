@@ -32,7 +32,7 @@ window.addEventListener('message', evt => {
   //   applitoolsServerUrl: 'http://www.google.com',
   //   applitoolsAPIKey: '',
   //   applitoolsProxy: undefined,
-  //   applitoolsSizeMode: eSizeMode.Viewport,
+  //   applitoolsTarget: eSizeMode.Viewport,
   //   applitoolsBrowsers: [
   //     new Browser(browsers[0], 2560, 1440),
   //     new Browser(browsers[1], 2560, 1440)

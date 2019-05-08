@@ -61,6 +61,7 @@ export default class ApplitoolsWebViewPanel {
 				case 'takeScreenshot': {			
 					if (message.settings) {
 						updateSettings(message.settings).then(async () => {
+							this._panel.webview.postMessage({ settings: getSettings(), error: undefined });
 							this.takeScreenshots();
 						});
 					} else {

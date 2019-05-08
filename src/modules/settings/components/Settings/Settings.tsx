@@ -70,8 +70,8 @@ class SettingsComponent extends React.Component<IProps, IState> {
                     <Input label="Server Url" name="applitoolsServerUrl" onChange={this.settingsChanged} value={settings && settings.applitoolsServerUrl} />
                     <hr />
                     <h3>Target</h3>
-                    <Input type="radio" label="Full Page" name="applitoolsSizeMode" onChange={this.settingsChanged} value={eSizeMode.FullPage} checked={settings && settings.applitoolsSizeMode === eSizeMode.FullPage} />
-                    <Input type="radio" label="Viewport" name="applitoolsSizeMode" onChange={this.settingsChanged} value={eSizeMode.Viewport} checked={settings && settings.applitoolsSizeMode === eSizeMode.Viewport} />
+                    <Input type="radio" label="Full Page" name="applitoolsTarget" onChange={this.settingsChanged} value={eSizeMode.FullPage} checked={settings && settings.applitoolsTarget === eSizeMode.FullPage} />
+                    <Input type="radio" label="Viewport" name="applitoolsTarget" onChange={this.settingsChanged} value={eSizeMode.Viewport} checked={settings && settings.applitoolsTarget === eSizeMode.Viewport} />
                     <hr />
                     <h3>Browsers</h3>
                     <BrowsersSelector selectedBrowsers={settings && settings.applitoolsBrowsers} onChange={this.settingsChanged} />
